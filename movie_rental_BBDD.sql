@@ -110,7 +110,7 @@ WHERE f.title = 'Indian Love'; -- use a filter on the movie title to show only t
 
 SELECT f.title, f.description -- select the movie title and description as verification
 FROM film AS f -- from the table 'film' with alias 'f'
-WHERE f.description LIKE '% dog %' OR f.description LIKE '% cat %'; -- using patterns that include the words 'dog' or 'cat' and show results for both
+WHERE f.description LIKE '%dog%' OR f.description LIKE '%cat%'; -- using patterns that include the words 'dog' or 'cat' and show results for both
 
 --  15. Find the titles of all the movies that were released between 2005 and 2010
 
