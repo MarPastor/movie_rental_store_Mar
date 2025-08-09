@@ -167,7 +167,7 @@ HAVING average_duration > 120; -- filter the query to show results with an avera
 SELECT a.first_name, COUNT(DISTINCT fa.film_id) AS movies -- select the name of the actor/actress and the number of films they have acted in
 FROM actor AS a -- from the table 'actor' with alias 'a'
 INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id -- joining with the 'film_actor' table using the 'actor_id'
-GROUP BY a.first_name -- group the query by the actor/actress name
+GROUP BY a.first_name, a.last_name -- group the query by the actor/actress name
 HAVING movies > 5 -- filter the query that shows results in the count greater than 5
 ORDER BY movies; -- sort by movies for better verification
 
