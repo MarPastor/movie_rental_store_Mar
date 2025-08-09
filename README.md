@@ -1,38 +1,38 @@
-# Evaluación Final - Módulo 2
+# Movie Rental - BBDD
 
-Ejercicio para demostrar comprensión y habilidades con MySQL, realizando consultas a la BBDD 'Sakila' simulando consultas en el contexto de una tienda de alquiler de películas
+Using the 'Sakila' SQL database, and making queries in the context of a movie rental store
 
 ---
 
-## Tecnologías usadas
+## Technologies used
 
 - MySQL Workbench
 - Visual Studio Code
 
 ---
 
-## Instrucciones de uso
+## Instructions for use
 
-1. Clona el repositorio en local.
-2. Abre MySql Workbench y accede al servidor de Adalab Server.
-3. Ve a la pestaña de archivo, selecciona Abrir Script de SQL y abre el archivo principal: `final_evaluation_mod2_marpastor`.
-4. Selecciona el primer comando (USE) del script que se encuentra en el area de trabajo y click al icono del rayo para ejecutarlo.
-5. Seleccionar cada cóodigo de cada sección de los ejercicios para comprobar y visualizar los resultados de cada consulta.
+1. Clone the repository locally
+2. Open MySQL Workbench and access the Adalab Server
+3. Go to the File tab, select Open SQL Script, and open the main file: `movie_rental_BBDD.sql`
+4. Select the first (USE) command in the script in the workspace and click the lightning bolt icon to execute it
+5. Select each code in each section of the exercises to check and view the results of each query
 
 ---
 
-## Autora
+## Author
 
 - Mar Pastor
 
 ---
 
-## Estado del proyecto
+## Project status
 
-Finalizado
+Completed
 
 ---
 
-## Capturas de pantalla
+## Screenshots
 
-En la carpeta `captura_de_pantallas_resultados` se encuentran las capturas de los resultados de las consultas de cada ejercicio
+The `screenshots` folder contains screenshots of the query results for each exercise
