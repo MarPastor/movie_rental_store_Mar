@@ -1,220 +1,220 @@
 -- *********************************************
--- Evaluacion Final MOD2 - Mar Pastor
+-- Movie Rental Database
 -- *********************************************
 
--- Usando la BBDD Sakila
+-- Using BBDD Sakila
 USE Sakila;
 
 -- *********************************************
--- Ejercicios
+-- Querys
 -- *********************************************
 
--- 1. Selecciona todos los nombres de las películas sin que aparezcan duplicados
+-- 1. Select all movie names without duplicates appearing
 
-SELECT DISTINCT f.title -- selecciona la columna con el nombre de las peliculas una vez con 'distinct'
-FROM film AS f; -- de la tabla 'film' con un alias 'f'
+SELECT DISTINCT f.title -- select the column with the movie names once with 'distinct'
+FROM film AS f; -- from the 'film' table with an alias 'f'
 
--- 2. Muestra los nombres de todas las películas que tengan una clasificación de "PG-13"
+-- 2. Displays the names of all movies that have a "PG-13" rating
 
-SELECT f.title, f.rating -- seleccina las columnas con el nombre y la clasificación de las películas
-FROM film AS f -- llama la tabla que contiene las columnas con un alias 'f'
-WHERE rating = 'PG-13'; -- filtra la información requerida en el ejercicio
+SELECT f.title, f.rating -- select the columns with the name and rating of the movies
+FROM film AS f -- from 'film' table containing the columns with an alias 'f'
+WHERE rating = 'PG-13'; -- filters the information required in the exercise
 
--- 3. Encuentra el título y la descripción de todas las películas que contengan la palabra "amazing" en su descripción
+-- 3. Find the title and description of all movies that contain the word "amazing" in their description
 
-SELECT f.title, f.description -- selecciona las columnas de nombre y descripción
-FROM film AS f -- de la tabla 'film' con un alias 'f'
-WHERE f.description LIKE '%amazing%'; -- filtra las descripciones que contiene la palabra 'amazing' y lo que rodee la palabra
+SELECT f.title, f.description -- select the name and description columns
+FROM film AS f -- from the 'film' table with an alias 'f'
+WHERE f.description LIKE '%amazing%'; -- filters descriptions that contain the word 'amazing' and what surrounds the word
 
--- 4. Encuentra el título de todas las películas que tengan una duración mayor a 120 minutos
+-- 4. Find the title of all movies that are longer than 120 minutes
 
-SELECT f.title, f.length -- seleccion el titulo y la duración para comprobar resultados
-FROM film AS f -- de la tabla 'film' con un alias 'f'
-WHERE f.length > 120 -- filtra las peliculas que tengan una duración mayor de 120
+SELECT f.title, f.length -- select the title and duration to check the results
+FROM film AS f -- from the 'film' table with an alias 'f'
+WHERE f.length > 120 -- filter movies that are longer than 120
 ORDER BY f.length;
 
--- 5. Recupera los nombres de todos los actores
+-- 5. Select the names of all actors
 
--- propuesta_solucion_1
-SELECT a.first_name, a.last_name -- selecciona las columnas del nombre y apellido de los actores
-FROM actor AS a; -- en la tabla 'actor' con alias 'a'
+-- proposed_solution_1
+SELECT a.first_name, a.last_name -- select the actors' first and last name columns
+FROM actor AS a; -- in the 'actor' table with alias 'a'
 
--- propuesta_solucion_2
-SELECT a.first_name -- selecciona la columna del nombre de los actores
-FROM actor AS a; -- en la tabla 'actor' con un alias 'a'
+-- proposed_solution_2
+SELECT a.first_name -- select the actors' name column
+FROM actor AS a; -- in the 'actor' table with an alias 'a'
 
--- propuesta_solucion_3
-SELECT CONCAT(first_name, ' ', last_name) AS actor_name -- selecciona los datos de las columnas nombre y apellidos, y las concatena en una sola columna
+-- proposed_solution_3
+SELECT CONCAT(first_name, ' ', last_name) AS actor_name -- selects the data from the first and last name columns and concatenates them into a single column
 FROM actor;
 
--- 6. Encuentra el nombre y apellido de los actores que tengan "Gibson" en su apellido
+-- 6. Find the first and last names of actors who have "Gibson" in their last name
 
-SELECT a.first_name, a.last_name -- selecciona las columnas de nombre y apellidos
-FROM actor AS a -- de la tabla 'actor' con un alias 'a'
-WHERE a.last_name LIKE '%Gibson%'; -- filtra la consulta con nombre y apellido de actores que contengan 'Gibson' en la columna 'last_name'
+SELECT a.first_name, a.last_name -- select the first and last name columns
+FROM actor AS a -- from the 'actor' table with an alias 'a'
+WHERE a.last_name LIKE '%Gibson%'; -- filter the query with the first and last name of actors that contain 'Gibson' in the 'last_name' column
 
--- 7. Encuentra los nombres de los actores que tengan un actor_id entre 10 y 20
+-- 7. Find the names of actors that have an actor_id between 10 and 20
 
-SELECT a.first_name, a.actor_id -- selecciona la columna del nombre de los actores y el id de los actores para comprobar resultados
-FROM actor AS a -- de la tabla 'actor' con alias 'a'
-WHERE a.actor_id BETWEEN 10 AND 20 -- filtra los id de los actores entre 10 y 20, incluyéndolos
-ORDER BY a.actor_id; -- ordena por id de mayor a menor
+SELECT a.first_name, a.actor_id -- select the actor name and actor id column to check the results
+FROM actor AS a -- from the 'actor' table with an alias 'a'
+WHERE a.actor_id BETWEEN 10 AND 20 -- filters actor ids between 10 and 20, including them
+ORDER BY a.actor_id; -- sort by id from highest to lowest
 
--- 8. Encuentra el título de las películas en la tabla film que no sean ni "R" ni "PG-13" en cuanto a su clasificación
+-- 8. Find the title of the movies in the film table that are neither "R" nor "PG-13" in terms of their classification
 
-SELECT f.title, f.rating -- selecciona titulo de las columnas del titulo y clasificación para verificación
-FROM film AS f -- de la tabla 'film' con alias 'f'
-WHERE f.rating NOT IN ('R', 'PG-13') -- filtra la consulta para que no muestre peliculas con clasificación 'R' o "PG-13'
-ORDER BY f.rating; -- ordena el rating para mejor visibilización
+SELECT f.title, f.rating -- select title from title and sort columns for verification
+FROM film AS f -- from the table 'film' with alias 'f'
+WHERE f.rating NOT IN ('R', 'PG-13') -- filter the query to not show movies with an 'R' or 'PG-13' rating
+ORDER BY f.rating; -- sort the rating for better visibility
 
--- 9. Encuentra la cantidad total de películas en cada clasificación de la tabla film y muestra la clasificación junto con el recuento
+-- 9. Find the total number of movies in each rating in the film table and display the rating along with the count
 
-SELECT f.rating, COUNT(DISTINCT f.title) AS rating_count -- selecciona la clasificación de las peliculas y cuentas las peliculas dentro de esa categoria, guarda los datos en una columna 'recuento'
-FROM film AS f -- de la tabla 'film' con alias 'f'
-GROUP BY f.rating; -- para que aparezca la lista agrupada por clasificación
+SELECT f.rating, COUNT(DISTINCT f.title) AS rating_count -- select the movie classification and count the movies within that category, saving the data in a 'count' column
+FROM film AS f -- from the table 'film' with alias 'f'
+GROUP BY f.rating; -- to display the list grouped by classification
 
--- 10. Encuentra la cantidad total de películas alquiladas por cada cliente y muestra el ID del cliente, su nombre y apellido 
--- junto con la cantidad de películas alquiladas
+-- 10. Find the total number of movies rented by each customer and display the customer ID, first name, and last name
+-- along with the number of movies rented
 
-SELECT r.customer_id, c.first_name, c.last_name, COUNT(DISTINCT r.rental_id) AS rented_movies -- selecciona el ID, nombre completo del cliente y conteo de películas alquiladas
-FROM rental AS r -- de la tabla 'film'
-INNER JOIN customer AS c ON r.customer_id = c.customer_id -- uniendo la tabla 'customers' usando el 'customer_id'
-GROUP BY r.customer_id; -- agrupa la consulta por el 'customer_id'
+SELECT r.customer_id, c.first_name, c.last_name, COUNT(DISTINCT r.rental_id) AS rented_movies -- select the customer's ID, full name, and rental movie count
+FROM rental AS r -- from the table 'rental' with alias 'r'
+INNER JOIN customer AS c ON r.customer_id = c.customer_id -- joining the 'customers' table using the 'customer_id'
+GROUP BY r.customer_id; -- groups the query by the 'customer_id'
 
---  11. Encuentra la cantidad total de películas alquiladas por categoría y muestra el nombre de la categoría junto con el recuento de alquileres
+--  11. Find the total number of movies rented by category and display the category name along with the rental count
 
-SELECT c.name, COUNT(r.rental_id) AS rented_count -- selecciona el nombre de la categoría y el recuento veces que se han alguilado
-FROM rental AS r -- de la tabla 'rental'
-INNER JOIN inventory AS i ON r.inventory_id = i.inventory_id -- unida a la tabla 'inventory' usando el 'inventory_id'
-INNER JOIN film_category AS fc ON i.film_id = fc.film_id -- unida a su vez a la tabla 'film_category' usando el 'film_id'
-INNER JOIN category AS c ON fc.category_id = c.category_id -- unida a su vez a la tabla 'category' usando el 'category_id'
-GROUP BY c.name; -- se agrupa con el nombre de la categoría
+SELECT c.name, COUNT(r.rental_id) AS rented_count -- select the category name and the number of times it has been rented
+FROM rental AS r -- from the table 'rental' with alias 'r'
+INNER JOIN inventory AS i ON r.inventory_id = i.inventory_id -- joined to the 'inventory' table using the 'inventory_id'
+INNER JOIN film_category AS fc ON i.film_id = fc.film_id -- joined in turn to the 'film_category' table using the 'film_id'
+INNER JOIN category AS c ON fc.category_id = c.category_id -- joined in turn to the 'category' table using the 'category_id'
+GROUP BY c.name; -- is grouped with the category name
 
--- 12. Encuentra el promedio de duración de las películas para cada clasificación de la tabla film y muestra la clasificación junto con el promedio de duración
+-- 12. Find the average length of the movies for each rating in the film table and display the rating along with the average length
 
-SELECT c.name, AVG(f.length) -- seleccion el nombre de la clasificación, calculando el promedio de duración de la película
-FROM film AS f -- de la tabla 'film'
-INNER JOIN film_category AS fc ON f.film_id = fc.film_id -- unida a la tabla 'film_category' usando el 'film_id'
-INNER JOIN category AS c ON fc.category_id = c.category_id -- unida a su vez a la tabla 'category' usando el 'category_id'
-GROUP BY c.name; -- agrupando la consulta por el nombre de la clasificación
+SELECT c.name, AVG(f.length) -- select the name of the rating, calculating the average length of the film
+FROM film AS f -- from the table 'film' with alias 'f'
+INNER JOIN film_category AS fc ON f.film_id = fc.film_id -- joined to the 'film_category' table using the 'film_id'
+INNER JOIN category AS c ON fc.category_id = c.category_id -- joined in turn to the 'category' table using the 'category_id'
+GROUP BY c.name; -- grouping the query by the classification name
 
--- 13. Encuentra el nombre y apellido de los actores que aparecen en la película con title "Indian Love"
+-- 13. Find the first and last names of the actors who appear in the film titled "Indian Love"
 
-SELECT a.first_name, a.last_name, f.title -- selecciona el nombre y apellido de actor/actriz, y el nombre de la película 'Indian Love' como comprobación
-FROM actor AS a -- de la tabla 'actor'
-INNER JOIN film_actor AS fa ON fa.actor_id = a.actor_id -- uniendo la tabla 'film_actor' usando el 'actor_id'
-INNER JOIN film AS f ON f.film_id = fa.film_id -- uniendo a su vez la tabla 'film' usando el 'film_id'
-WHERE f.title = 'Indian Love'; -- usa un filtro en título de la película para mostrar solo los que actuaron en 'Indian Love'
+SELECT a.first_name, a.last_name, f.title -- select the actor/actress's first and last name, and the movie name 'Indian Love' as a check.
+FROM actor AS a -- from the 'actor' table with an alias 'a'
+INNER JOIN film_actor AS fa ON fa.actor_id = a.actor_id -- joining the 'film_actor' table using the 'actor_id'
+INNER JOIN film AS f ON f.film_id = fa.film_id -- joining the 'film' table using the 'film_id'
+WHERE f.title = 'Indian Love'; -- use a filter on the movie title to show only those who acted in 'Indian Love'
 
---  14. Muestra el título de todas las películas que contengan la palabra "dog" o "cat" en su descripción
+--  14. Displays the title of all movies that contain the word "dog" or "cat" in their description
 
-SELECT f.title, f.description -- selecciona el titulo de la pelicual y la descripción como comprobación
-FROM film AS f -- de la tabla 'film'
-WHERE f.description LIKE '% dog %' OR f.description LIKE '% cat %'; -- usando patrones que incluyan las palabras 'dog' o 'cat' y muestre resultados de ambos
+SELECT f.title, f.description -- select the movie title and description as verification
+FROM film AS f -- from the table 'film' with alias 'f'
+WHERE f.description LIKE '% dog %' OR f.description LIKE '% cat %'; -- using patterns that include the words 'dog' or 'cat' and show results for both
 
---  15. Encuentra el título de todas las películas que fueron lanzadas entre el año 2005 y 2010
+--  15. Find the titles of all the movies that were released between 2005 and 2010
 
-SELECT f.title, f.release_year -- selecciona el titulo y el año de estreno como comprobación
-FROM film AS f -- de la tabla 'film'
-WHERE f.release_year BETWEEN 2005 AND 2010; -- agrega un filtro a la consulta enre los año 2005 y 2010
+SELECT f.title, f.release_year -- select the title and year of release as verification
+FROM film AS f -- from the table 'film' with alias 'f'
+WHERE f.release_year BETWEEN 2005 AND 2010; -- add a filter to the query between the years 2005 and 2010
 
--- 16. Encuentra el título de todas las películas que son de la misma categoría que "Family"
+-- 16. Find the titles of all movies that are in the same category as "Family"
 
-SELECT f.title, c.name -- selecciona el título de todas las películas y categoría como comprobación
-FROM film AS f -- de la tabla 'film'
-INNER JOIN film_category AS fc ON f.film_id = fc.film_id -- unida a la tabla 'film_category' por el 'film_id'
-INNER JOIN category AS c ON fc.category_id = c.category_id -- unida a su vez a la tabla 'category' por el 'category_id'
-WHERE c.name = 'Family'; -- aplica un filtro a la consulta las películas de la categoría "Family"
+SELECT f.title, c.name -- select the title of all movies and category as a check
+FROM film AS f -- from the table 'film' with alias 'f'
+INNER JOIN film_category AS fc ON f.film_id = fc.film_id -- joined to the 'film_category' table by the 'film_id'
+INNER JOIN category AS c ON fc.category_id = c.category_id -- joined in turn to the 'category' table by the 'category_id'
+WHERE c.name = 'Family'; -- apply a filter to the query for movies in the "Family" category
 
--- 17. Encuentra el título de todas las películas que son "R" y tienen una duración mayor a 2 horas en la tabla film
+-- 17. Find the title of all movies that are "R" and have a runtime greater than 2 hours in the film table
 
-SELECT f.title, f.rating, f.length -- selecciona el título de todas las películas, rating 'R' y la duración como comprobación
-FROM film AS f -- de la tabla 'film'
-WHERE f.rating = 'R' AND f.length > 120 -- filtra la consulta por películas con rating "R" y de duración mayor a 2 horas
-ORDER BY f.length; -- ordenada por duración
+SELECT f.title, f.rating, f.length -- select the title of all movies, the 'R' rating, and the duration as a check
+FROM film AS f -- from the table 'film' with alias 'f'
+WHERE f.rating = 'R' AND f.length > 120 -- filter the query by movies with an "R" rating and running time greater than 2 hours
+ORDER BY f.length; -- sorted by duration
 
 -- *********************************************
--- Ejercicio bonus
+-- More Complex Queries
 -- *********************************************
 
--- 18. Muestra el nombre y apellido de los actores que aparecen en más de 10 películas
+-- 18. Displays the first and last names of actors who appear in more than 10 films
 
-SELECT a.first_name, a.last_name, COUNT(fa.film_id) AS movies_count -- selecciona nombre y apellido de los actores y el conteo de las peliculas en las que aparecen
-FROM film_actor AS fa -- de la tabla 'film_actor'
-INNER JOIN actor AS a ON fa.actor_id = a.actor_id -- unida con la tabla 'actor' para obtener los nombres y apellidos donde coincidan con el 'actor_id'
-GROUP BY fa.actor_id -- agrupa el conteo de peliculas por 'actor_id'
-HAVING movies_count > 10 -- filtra la consulta para que muestre los actores que aparecen en más de 10 películas
-ORDER BY movies_count; -- ordena por la cantidad de películas de menor a mayor
+SELECT a.first_name, a.last_name, COUNT(fa.film_id) AS movies_count -- select the actors' first and last names and the count of the films in which they appear
+FROM film_actor AS fa -- from the 'film_actor' table with an alias 'fa'
+INNER JOIN actor AS a ON fa.actor_id = a.actor_id -- joined with the 'actor' table to obtain the first and last names where they match the 'actor_id'
+GROUP BY fa.actor_id -- group the movie count by 'actor_id'
+HAVING movies_count > 10 -- filter the query to show actors who appear in more than 10 movies
+ORDER BY movies_count; -- sort by number of movies from lowest to highest
 
--- 19. Hay algún actor o actriz que no aparezca en ninguna película en la tabla film_actor?
+-- 19. Is there any actor or actress who doesn't appear in any film in the film_actor table?
 
-SELECT actor_id -- seleccion el id del actor/actriz
-FROM film_actor -- de la tabla 'film_actor'
-WHERE film_id IS NULL; -- verifica si en la columna film_id hay resultados nulos, es decir que no esten en alguna pelicula
+SELECT actor_id -- select the actor/actress id
+FROM film_actor -- from the 'film_actor'
+WHERE film_id IS NULL; -- check if there are null results in the film_id column, that is, if they are not in any movie
 
---  20. Encuentra las categorías de películas que tienen un promedio de duración superior a 120 minutos 
--- y muestra el nombre de la categoría junto con el promedio de duración
+--  20. Find movie categories that have an average length of more than 120 minutes
+-- and displays the category name along with the average duration
 
-SELECT c.name, AVG(f.length) AS average_duration -- selecciona la categoría y la duración
-FROM film AS f -- de la tabla 'film'
-INNER JOIN film_category AS fc ON f.film_id = fc.film_id -- uniendo con la tabla 'film_category' usando el 'film_id'
-INNER JOIN category AS c ON fc.category_id = c.category_id -- uniendo a su vez con la tabla 'category' usando el 'category_id'
-GROUP BY c.name -- agrupa la consulta por el nombre de la categoría
-HAVING average_duration > 120; -- filtra la consulta que muestre los resultados con un promedio de duración superior a 120
+SELECT c.name, AVG(f.length) AS average_duration -- select the category and duration
+FROM film AS f -- from the table 'film' with alias 'f'
+INNER JOIN film_category AS fc ON f.film_id = fc.film_id -- joining with the 'film_category' table using the 'film_id'
+INNER JOIN category AS c ON fc.category_id = c.category_id -- joining in turn with the 'category' table using the 'category_id'
+GROUP BY c.name -- groups the query by category name
+HAVING average_duration > 120; -- filter the query to show results with an average duration greater than 120
 
---  21. Encuentra los actores que han actuado en al menos 5 películas y muestra el nombre del actor junto con la cantidad de películas en las que han actuado
+--  21. Find actors who have acted in at least 5 movies and display the actor's name along with the number of movies they have acted in
 
-SELECT a.first_name, COUNT(DISTINCT fa.film_id) AS movies -- seleccion el nombre de actor/actriz y el conteo de películas en las que han actuado
-FROM actor AS a -- de la tabla 'actor'
-INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id -- uniendo con la tabla 'film_actor' usando el 'actor_id'
-GROUP BY a.first_name -- agrupar la consulta por el nombre de actor/actriz
-HAVING movies > 5 -- filtra la consulta que muestre resultados en el conteo mayores a 5
-ORDER BY movies; -- ordenar por películas para mejor comprobación
+SELECT a.first_name, COUNT(DISTINCT fa.film_id) AS movies -- select the name of the actor/actress and the number of films they have acted in
+FROM actor AS a -- from the table 'actor' with alias 'a'
+INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id -- joining with the 'film_actor' table using the 'actor_id'
+GROUP BY a.first_name -- group the query by the actor/actress name
+HAVING movies > 5 -- filter the query that shows results in the count greater than 5
+ORDER BY movies; -- sort by movies for better verification
 
--- 22. Encuentra el título de todas las películas que fueron alquiladas por más de 5 días
--- Utiliza unasubconsulta para encontrar los rental_ids con una duración superior a 5 días y luego selecciona las películas correspondientes
+-- 22. Find the title of all movies that were rented for more than 5 days
+-- Use a subquery to find rental_ids with a duration greater than 5 days and then select the corresponding movies
 
--- subconsulta que encuentra los alquileres mayores a 5 días
+-- subquery that finds rentals longer than 5 days
 
-SELECT r.rental_id, r.rental_date, r.return_date, DATEDIFF(r.return_date, r.rental_date) AS days_rented -- usa el comando 'datediff' para calcular los dias entre fechas
-FROM rental AS r
-HAVING days_rented > 5; -- filtra los resultados para mostrar los mayores a 5 días
+SELECT r.rental_id, r.rental_date, r.return_date, DATEDIFF(r.return_date, r.rental_date) AS days_rented -- use the 'datediff' command to calculate the days between dates
+FROM rental AS r -- from the table 'rental' with alias 'r'
+HAVING days_rented > 5; -- filter the results to show those older than 5 days
 
--- pero para usarlo con la consulta principal podemos poner la función 'DATEDIFF' como una condicional, ya que la subconsulta acepta seleccionar una sola columna
+-- but to use it with the main query we can put the 'DATEDIFF' function as a conditional, since the subquery accepts selecting only one column
 
 SELECT r.rental_id
-FROM rental AS r
-WHERE DATEDIFF(r.return_date, r.rental_date) > 5; -- usar el DATEDIFF resultado en el filtro como condición
+FROM rental AS r -- from the table 'rental' with alias 'r'
+WHERE DATEDIFF(r.return_date, r.rental_date) > 5; -- use the DATEDIFF result in the filter as a condition
                   
--- unir a la consulta principal (Encuentra el título de todas las películas que fueron alquiladas por más de 5 días)
+-- join to main query (Find the titles of all movies that have been rented for more than 5 days)
 
-SELECT DISTINCT f.title -- selecciona el título de todas las películas sin que se repita
-FROM film AS f -- de la tabla 'film'
-INNER JOIN inventory AS i USING(film_id) -- uniendo con la tabla 'inventory' usando el 'film_id'
-INNER JOIN rental AS r USING(inventory_id) -- uniendo con la tabla 'rental' usando el 'inventory_id'
-WHERE f.film_id IN (SELECT r.rental_id -- aplicando el filtro de la consulta por el 'film_id' que cumpla con el resultado de la subconsulta
-				  FROM rental AS r -- de la tabla 'rental'
-                  INNER JOIN inventory AS i USING(inventory_id) -- uniendo con la tabla 'inventory' usando el 'inventory_id'
-                  INNER JOIN film AS F USING(film_id) -- uniendo con la tabla 'film' usando el 'film_id'
-				  WHERE DATEDIFF(r.return_date, r.rental_date) > 5 -- usando un filtro que tome los resultados que cumpla con la diferencia entre fecha de renta y fecha de devolución de la película
+SELECT DISTINCT f.title -- select the title of all movies without repeating it
+FROM film AS f -- from the table 'film' with alias 'f'
+INNER JOIN inventory AS i USING(film_id) -- joining with the 'inventory' table using the 'film_id'
+INNER JOIN rental AS r USING(inventory_id) -- joining with the 'rental' table using the 'inventory_id'
+WHERE f.film_id IN (SELECT r.rental_id -- applying the query filter by the 'film_id' that meets the result of the subquery
+				  FROM rental AS r -- from the table 'rental' with alias 'r'
+                  INNER JOIN inventory AS i USING(inventory_id) -- joining with the 'inventory' table using the 'inventory_id'
+                  INNER JOIN film AS F USING(film_id) -- joining with the 'film' table using the 'film_id'
+				  WHERE DATEDIFF(r.return_date, r.rental_date) > 5 -- using a filter that takes the results that meet the difference between the rental date and the return date of the movie
                   );
 
--- 23. Encuentra el nombre y apellido de los actores que no han actuado en ninguna película de la categoría "Horror"
--- Utiliza una subconsulta para encontrar los actores que han actuado en películas de la categoría "Horror" y luego exclúyelos de la lista de actores
+-- 23. Find the first and last names of actors who have not acted in any film in the "Horror" category.
+-- Use a subquery to find actors who have acted in films in the "Horror" category and then exclude them from the cast list
 
--- subconsulta para conseguir actor/actriz que actuaron en películas de la categoría "Horror"
+-- subquery to find actors/actresses who acted in films in the "Horror" category
 
-SELECT a.first_name, a.last_name, c.name -- selecciona el nombre, apellido y la categoría
-FROM actor AS a -- de la tabla 'actor'
-INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id -- unir con la tabla 'film_actor' usando el actor_id
-INNER JOIN film_category AS fc ON fa.film_id = fc.film_id -- unir con la tabla 'film_category' usando el film_id
-INNER JOIN category AS c ON fc.category_id = c.category_id -- unir con la tabla 'category' usando el category_id
-WHERE c.name = 'Horror'; -- filtrar el resultado por actor/actriz que actuaron en películas de la categoría "Horror"
+SELECT a.first_name, a.last_name, c.name -- select the first name, last name and category
+FROM actor AS a -- from the table 'actor' with alias 'a'
+INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id -- join with the 'film_actor' table using the actor_id
+INNER JOIN film_category AS fc ON fa.film_id = fc.film_id -- join with the 'film_category' table using the film_id
+INNER JOIN category AS c ON fc.category_id = c.category_id -- join with the 'category' table using the category_id
+WHERE c.name = 'Horror'; -- filter the result by actor/actress who acted in films in the "Horror" category
 
--- consulta principal que excluye actor/actriz de la lista de la subconsulta usando NOT IN en el filtro del resultado
+-- main query that excludes actor/actress from the subquery list using NOT IN in the result filter
 
-SELECT DISTINCT CONCAT(a.first_name, ' ', a.last_name) AS actor_name, c.name -- usando CONCAT para crear una columna con el nombre completo del actor/actriz
-FROM actor AS a
+SELECT DISTINCT CONCAT(a.first_name, ' ', a.last_name) AS actor_name, c.name -- using CONCAT to create a column with the actor's/actress's full name
+FROM actor AS a -- from the table 'actor' with alias 'a'
 INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id
 INNER JOIN film_category AS fc ON fa.film_id = fc.film_id
 INNER JOIN category AS c ON fc.category_id = c.category_id
@@ -226,21 +226,21 @@ WHERE a.actor_id NOT IN (SELECT a.actor_id
 						WHERE c.name = 'Horror')
 ORDER BY c.name;
 
--- 24. Encuentra el título de las películas que son comedias y tienen una duración mayor a 180 minutos en la tabla film
+-- 24. Find the title of comedies that are longer than 180 minutes in the film table
  
-SELECT f.title, c.name, f.length -- selecciona el título de las películas, la categoría y la duración para comprobación
-FROM film AS f -- de la tabla 'film'
-INNER JOIN film_category AS fc USING(film_id) -- unida a la tabla 'film' usando el 'film_id'
-INNER JOIN category AS c USING(category_id) -- unida a la tabla 'category' usando el 'category_id'
-WHERE c.name = 'Comedy' -- filtra los resultados por la categoría comedia
-AND f.length > 180 -- filtra por la duración mayor a 180 minutos
-ORDER BY f.length; -- ordena por duración
+SELECT f.title, c.name, f.length -- select the movie title, category and duration for checking
+FROM film AS f -- from the table 'film' with alias 'f'
+INNER JOIN film_category AS fc USING(film_id) -- joined to the 'film' table using the 'film_id'
+INNER JOIN category AS c USING(category_id) -- joined to the 'category' table using the 'category_id'
+WHERE c.name = 'Comedy' -- filter the results by the comedy category
+AND f.length > 180 -- filter by duration greater than 180 minutes
+ORDER BY f.length; -- sort by duration
  
--- 25. Encuentra todos los actores que han actuado juntos en al menos una película
--- La consulta debe mostrar el nombre y apellido de los actores y el número de películas en las que han actuado juntos
+-- 25. Find all the actors who have acted together in at least one movie
+-- The query must show the actors' first and last names and the number of films they have acted in together
 
-SELECT a.first_name, a.last_name, COUNT(film_id) AS films_acted_together, GROUP_CONCAT(film_id) AS film_ad_group -- selecciona nombre, apellido y el número de películas en las que han actuado juntos, usa GROUP_CONCAT apra verificar el resultado
-FROM actor AS a -- de la tabla 'actor'
-INNER JOIN film_actor AS fa USING(actor_id) -- unida a la tabla 'film_actor'
-GROUP BY a.actor_id -- agrupada por 'actor_id'
-ORDER BY films_acted_together; -- organiza de menor a mayor
+SELECT a.first_name, a.last_name, COUNT(film_id) AS films_acted_together, GROUP_CONCAT(film_id) AS film_ad_group -- select first name, last name, and the number of films they have acted in together. Use GROUP_CONCAT to verify the result.
+FROM actor AS a -- from the 'actor' table with an alias 'a'
+INNER JOIN film_actor AS fa USING(actor_id) -- joined to the 'film_actor' table
+GROUP BY a.actor_id -- grouped by 'actor_id'
+ORDER BY films_acted_together; -- organized from smallest to largest
